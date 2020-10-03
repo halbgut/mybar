@@ -1,0 +1,42 @@
+pulseaudio
+  mainloop.run()
+    blocks the thread
+    use strace to figure out what its doing
+    ppoll
+      maybe use for other things?
+      man 2 poll
+        assumes a lot of knowledge
+          > The field fd contains a file descriptor for an open file.  If this field is negative, then the corresponding events field is ignored and the revents field returns zero.  (This provides an easy way of ignoring a file descriptor for a single poll() call: simply negate the fd field.  Note, however, that this technique can't be used to ignore file descriptor 0.)
+        uses bitmasks heavily
+          flags
+          return flags
+  Volume
+    cool-ass pattern matching stuff
+      let VolumeLinear(int) = VolumeLinear::from(volume);
+reading memory stats
+  procfs
+    kernel interface for process related information
+    /proc/meminfo
+      overview of memory information
+      used by `free -m`
+    /proc/[pid]/attrs
+      security attributes used by SELinux for example
+    /proc/[pid]/auxv
+      unclear what this does
+      stores information about ELF interpreter
+      ELF stands for Executable and Linking Format
+      seems to be related to linking
+      linking is usually the last step of the compliation process
+        files are compiled one by one
+          taking the header files of other "modules" into account
+          to execute functions in those modules something like a "jump" is used
+          defining the targets of those jumps is what the linker does
+            those target locations may not match the memory layout during execution
+            in those cases a loaded relocates objects and adjusts the destinations defined by the linker
+            now-adays most hardware supports virtual-memory
+              so loading is not necessary
+    /proc/[pid]/autogroup
+      controlls the CPU schedulers "autogroup" feature
+      the current default scheduler is the "Completely Fair Scheduler" or CFS
+      more evenly distributes CPU credit among programs
+        e.g. single threaded application will get the same amount of CPU as a multi-threaded applicatio

@@ -1,0 +1,13 @@
+[package]
+name = "mybar"
+version = "0.1.0"
+authors = ["Luca Nils Schmid <me@lucaschmid.net>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0.98", features = ["derive"] }
+chrono = "0.4"
+libpulse-binding = "2.6.0"
